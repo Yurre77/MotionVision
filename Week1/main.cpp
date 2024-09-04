@@ -1,9 +1,11 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
 #define JOINTS 3
+#define MAX_TRIES 100
 
 //make a class to keep track of positions
 class Position{
@@ -21,7 +23,7 @@ class Segment{
 };
 
 int makeArm(){
-    
+
     return 0;
 }
 
