@@ -3,25 +3,27 @@
 
 using namespace std;
 
-class Segment {
+#define JOINTS 3
+
+class Position{
     public:
-        int angle;
+        int x;
+        int y;
+};
+
+class Segment{
+    public:
         int length;
+        int angle;
+        Position position;
 };
 
 int main(){
-    cout << "Hello world";
+    Segment points[JOINTS];
+
+    for(int i=0; i<JOINTS; i++){
+
+    }
+
     return 0;
-}
-
-int calculateEnd(){
-
-}
-
-float calculateSin(){
-
-}
-
-float calculateCos(){
-    
 }
