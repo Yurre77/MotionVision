@@ -22,17 +22,17 @@ class Segment{
         Position position;
 };
 
-int makeArm(){
+int makeArm(Segment points[]){
+    for(int i = 0;;){
 
+    }
     return 0;
 }
 
 int main(){
     Segment points[JOINTS];
 
-    for(int i=0; i<JOINTS; i++){
-
-    }
+    makeArm(points);
 
     return 0;
 }
