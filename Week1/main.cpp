@@ -20,6 +20,11 @@ class Segment{
         Position position;
 };
 
+int makeArm(){
+    
+    return 0;
+}
+
 int main(){
     Segment points[JOINTS];
 
