@@ -5,12 +5,14 @@ using namespace std;
 
 #define JOINTS 3
 
+//make a class to keep track of positions
 class Position{
     public:
         int x;
         int y;
 };
 
+//make a class to keep track of each segment
 class Segment{
     public:
         int length;
