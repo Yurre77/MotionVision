@@ -23,8 +23,9 @@ class Segment{
 };
 
 int makeArm(Segment points[]){
-    for(int i = 0;;){
-
+    for(int i = 0; i < points->length; i++){
+        points[i].position.x = 0;
+        points[i].position.y = (0 + i);
     }
     return 0;
 }
