@@ -46,5 +46,10 @@ int main(){
     //do the fk calculations
     fk(q, ptr);
 
+    //output the pose matrix
+    for(const auto& pose : p){
+        cout << "(" << pose[0] << "," << pose[1] << pose[2] << ")" << endl;
+    }
+
     return 0;
 }
