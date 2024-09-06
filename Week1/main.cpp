@@ -5,7 +5,7 @@
 using namespace std;
 
 //function to calculate forward Kinematics (FK)
-array<array<double, 3>, 4> fk(const vector<double>& q){
+vector <double> fk(const vector<double>& q){
     //Arm links
     const double L1=1.0, L2=1.0, L3 = 1.0;
 
@@ -32,13 +32,12 @@ array<array<double, 3>, 4> fk(const vector<double>& q){
     p3[1] = p2[1] + L3 * sin(q[0] + q[1] + q[2]);
     p3[2] = p2[2] + L3 * sin(q[1] + q[2]);
 
-    //return the matrix
-    return {p0, p1, p2, p3};
+    return p0, p1, p2, p3;
 }
 
 int main(){
     //joint angle vectors
-    double q[3] = {0.0, 0.2, 0.4};
+    vector <double> q = {0.1, 0.4, 0.9};
 
     //pose matrix
     double p[3][4];
