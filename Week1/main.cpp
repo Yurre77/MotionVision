@@ -5,15 +5,15 @@
 using namespace std;
 
 //function to calculate forward Kinematics (FK)
-array<array<double, 3>, 4> fk(const array<double, 3>& q){
+array<array<double, 3>, 4> fk(const vector<double>& q){
     //Arm links
     const double L1=1.0, L2=1.0, L3 = 1.0;
 
     //position vectors of each joint
-    array <double, 3> p0 = {0.0, 0.0, 0.0};
-    array <double, 3> p1;
-    array <double, 3> p2;
-    array <double, 3> p3;
+    vector <double> p0 = {0.0, 0.0, 0.0};
+    vector <double> p1;
+    vector <double> p2;
+    vector <double> p3;
 
     //calculations for forward kinematics
 
