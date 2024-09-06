@@ -5,9 +5,11 @@
 using namespace std;
 
 //function to calculate forward Kinematics (FK)
-vector <double> fk(const vector<double>& q){
+void fk(const vector<double>& q, double (*p)[4]){
     //Arm links
     const double L1=1.0, L2=1.0, L3 = 1.0;
+
+    //
 
     //position vectors of each joint
     vector <double> p0 = {0.0, 0.0, 0.0};
@@ -31,8 +33,6 @@ vector <double> fk(const vector<double>& q){
     p3[0] = p2[0] + L3 * cos(q[0] + q[1] + q[2]);
     p3[1] = p2[1] + L3 * sin(q[0] + q[1] + q[2]);
     p3[2] = p2[2] + L3 * sin(q[1] + q[2]);
-
-    return p0, p1, p2, p3;
 }
 
 int main(){
@@ -42,8 +42,11 @@ int main(){
     //pose matrix
     double p[3][4];
 
-    //solve kinematics
-    p = fk(q);
+    //make it so that the pose matrix can be passed to the fk function
+    double (*ptr)[4];
+    ptr = p;
+
+    fk(q, ptr);
 
     return 0;
 }
