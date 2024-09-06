@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <vector>
 
 using namespace std;
 
@@ -22,7 +21,14 @@ array<array<double, 3>, 4> fk(const array<double, 3>& q){
     p1[1] = p0[1] + L1 * sin(q[0]);
     p1[2] = q[0];
 
+    //p2: pose of joint #3 (end of link 2)
+    p2[0] = p1[0] + L2 * cos(q[0] + q[1]);
+    p2[1] = p1[1] + L2 * sin(q[0] + q[1]);
+    p2[2] = q[1];
+
+    //p3: pose of the tool end (end of link 3)
     
+
     return {p0, p1, p2, p3};
 }
 
@@ -33,7 +39,8 @@ int main(){
     //pose matrix
     double p[3][4];
 
-
+    //solve kinematics
+    p = fk(q);
 
     return 0;
 }
