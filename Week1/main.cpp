@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -27,8 +28,11 @@ array<array<double, 3>, 4> fk(const array<double, 3>& q){
     p2[2] = q[1];
 
     //p3: pose of the tool end (end of link 3)
-    
+    p3[0] = p2[0] + L3 * cos(q[0] + q[1] + q[2]);
+    p3[1] = p2[1] + L3 * sin(q[0] + q[1] + q[2]);
+    p3[2] = p2[2] + L3 * sin(q[1] + q[2]);
 
+    //return the matrix
     return {p0, p1, p2, p3};
 }
 
