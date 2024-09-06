@@ -1,3 +1,9 @@
+/*
+Student: Yurre Schram
+Assignment: 1: Forward kinematics
+Date: 06-09-2024
+*/
+
 #include <iostream>
 #include <cmath>
 #include <vector>
