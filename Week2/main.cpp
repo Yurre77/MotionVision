@@ -34,7 +34,13 @@ void fk(const vector<double>& q, double (*p)[4]){
 
 //function for the inwards kinematics
 void ik(double (*p)[4]){
+    //Arm Links
+    const double L1=1.0, L2=1.0, L3 = 1.0;
 
+    //position vectors of each joint
+    *p[0] = 0.0, 0.0, 0.0;
+
+    
 }
 
 int main(){
