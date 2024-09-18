@@ -10,6 +10,13 @@ Date: 11-09-2024
 
 using namespace std;
 
+//function to determine a dot product
+double dotProduct(vector<double> V1, vector<double> v2){
+    double result;
+
+    return result;
+}
+
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4]){
     //Arm Links
