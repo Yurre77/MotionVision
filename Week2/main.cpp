@@ -53,7 +53,15 @@ int main(){
 
     //output the pose matrix
     for(const auto& pose : p){
-        cout << "(" << pose[0] << ", " << pose[1] << ", " << pose[2] << ")" << endl;
+        cout << "FK: \n(" << pose[0] << ", " << pose[1] << ", " << pose[2] << ")" << endl;
+    }
+
+    //do the ik calculations
+    ik(ptr);
+
+    //output the pose matrix
+    for(const auto& pose : p){
+        cout << "IK: \n(" << pose[0] << ", " << pose[1] << ", " << pose[2] << ")" << endl;
     }
 
     return 0;
