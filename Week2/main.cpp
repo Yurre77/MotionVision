@@ -33,14 +33,25 @@ void fk(const vector<double>& q, double (*p)[4]){
 }
 
 //function for the inwards kinematics
-void ik(double (*p)[4]){
+void ik(const vector<double>& q, double (*p)[4]){
     //Arm Links
     const double L1=1.0, L2=1.0, L3 = 1.0;
 
     //position vectors of each joint
     *p[0] = 0.0, 0.0, 0.0;
 
-    
+    //calculations for inverse kinematics positions
+    //p3: pose of joint #2 (end of link 1)
+    *p[3] = L1 * cos(q[0]), L1 * sin(q[0]), q[0];
+    *p[3] = *p[0] + *p[3];
+
+    //p2: pose of joint #3 (end of link 2)
+    *p[2] = L2 * cos(q[0] + q[1]), L2 * sin(q[0] + q[1]), q[1];
+    *p[2] = *p[3] + *p[2];
+
+    //p1: pose of the tool end (end of link 3)
+    *p[1] = L3 * cos(q[0] + q[1] + q[2]), L3 * sin(q[0] + q[1] + q[2]), q[2];
+    *p[1] = *p[2] + *p[1];
 }
 
 int main(){
@@ -63,7 +74,7 @@ int main(){
     }
 
     //do the ik calculations
-    ik(ptr);
+    ik(q, ptr);
 
     //output the pose matrix
     for(const auto& pose : p){
