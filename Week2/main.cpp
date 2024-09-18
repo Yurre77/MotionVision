@@ -11,8 +11,14 @@ Date: 11-09-2024
 using namespace std;
 
 //function to determine a dot product
-double dotProduct(vector<double> V1, vector<double> v2){
+double dotProduct(vector<double> V1, vector<double> V2){
     double result;
+
+    double Ax = V1[0] * V2[0];
+    double Ay = V1[1] * V2[1];
+    double Az = V1[2] * V2[2];
+
+    result = Ax + Ay + Az;
 
     return result;
 }
