@@ -23,6 +23,19 @@ double dotProduct(vector<double> V1, vector<double> V2){
     return result;
 }
 
+//function to calculate cross product
+vector<double> crossProduct(vector<double> v1, vector<double> v2){
+
+    vector<double> returnV;
+
+    //calculate the return vector
+    returnV[0] = v1[1] * v2[2] - v1[2] * v2[1];
+    returnV[1] = v1[2] * v2[0] - v1[0] * v2[2];
+    returnV[2] = v1[0] * v2[1] - v1[1] * v2[0];
+
+    return returnV;
+}
+
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4]){
     //Arm Links
