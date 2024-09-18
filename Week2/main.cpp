@@ -32,6 +32,11 @@ void fk(const vector<double>& q, double (*p)[4]){
     *p[3] = *p[2] + *p[3];
 }
 
+//function for the inwards kinematics
+void ik(double (*p)[4]){
+
+}
+
 int main(){
     //joint angle vectors
     vector <double> q = {0.1, 0.4, 0.9};
