@@ -36,6 +36,11 @@ vector<double> crossProduct(vector<double> v1, vector<double> v2){
     return returnV;
 }
 
+//function to calculate vector length
+double calcVectorLen(vector<double> v){
+    return (sqrt(((v[0]*v[0])+(v[1]*v[1])+(v[2]*v[2]))));
+}
+
 //function to calculate forward Kinematics (FK)
 void fk(const vector<double>& q, double (*p)[4]){
     //Arm links
