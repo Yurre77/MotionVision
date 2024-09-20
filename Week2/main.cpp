@@ -11,8 +11,8 @@ Date: 11-09-2024
 using namespace std;
 
 //constants
-#define DEST {1.0, 2.0, 0}
-#define LINK1  1.0
+#define DEST {1.0, 2.0}
+#define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
 
