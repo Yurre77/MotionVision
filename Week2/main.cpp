@@ -49,12 +49,7 @@ double calcVectorLen(vector<double> v){
 
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
-   double x = (LINK1 * cos(q[0])) + (LINK2 * cos(q[0] + q[1])) + (LINK3 * cos(q[0] + q[1] + q[2]));
-   double y = (LINK1 * sin(q[0])) + (LINK2 * sin(q[0] + q[1])) + (LINK3 * sin(q[0] + q[1] + q[2]));
-
-   *p[0] = 0.0, 0.0, 0.0;
-   *p[1] = M_PI - acos((((LINK1 * LINK1) + (LINK2 * LINK2) - x - y) / (2*(LINK1 + LINK2)))) || acos((((LINK1 * LINK1) + (LINK2 * LINK2) - x - y) / (2*(LINK1 + LINK2))));
-   *p[0] = atan(y/x) - atan((LINK2 * sin(*p[1])) / (LINK1 + LINK2 * cos(*p[1])));
+   
 }
 
 int main(){
