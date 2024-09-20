@@ -50,35 +50,41 @@ double calcVectorLen(vector<double> v){
 }
 
 //function for the inwards kinematics
-void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
-   //calculate whether the robot arm is long enough to reach the destination
-   double d = sqrt(DESTX * DESTX + DESTY * DESTY);
-   
-   if(d > LINK1 + LINK2 + LINK3 || d < fabs(LINK1 - LINK2 - LINK3)){
-    cout << "Robot won't be able to reach the target" << endl;
-    return;
-   }
+void ik(double &theta1, double &theta2, double &theta3){
+    //calculate whether the robot arm is long enough to reach the destination
+    double d = sqrt(DESTX * DESTX + DESTY * DESTY);
+
+    if(d > LINK1 + LINK2 + LINK3 || d < fabs(LINK1 - LINK2 - LINK3)){
+        cout << "Robot won't be able to reach the target" << endl;
+        return;
+    }
+
+    //determine the targets that the robot should try to reach
+    vector<double> target = {DESTX, DESTY, 0};
+    vector<double> virt_target = {DESTX - LINK3 * (DESTX / d), DESTY - LINK3 * (DESTY / d), 0};
+
+    vector<double> u1 = {LINK1, 0, 0};
+    vector<double> u2 = {virt_target[0] - u1[0], virt_target[1] - u1[1], 0};
+
+    
 }
 
 //function to calculate forward Kinematics (FK)
 void fk(const vector<double>& q, double (*p)[4]){
-    //Arm links
-    const double L1=1.0, L2=1.0, L3 = 1.0;
-
     //position vectors of each joint
     *p[0] = 0.0, 0.0, 0.0;
 
     //calculations for forward kinematics
     //p1: pose of joint #2 (end of link 1)
-    *p[1] = L1 * cos(q[0]), L1 * sin(q[0]), q[0];
+    *p[1] = LINK1 * cos(q[0]), LINK1 * sin(q[0]), q[0];
     *p[1] = *p[0] + *p[1];
 
     //p2: pose of joint #3 (end of link 2)
-    *p[2] = L2 * cos(q[0] + q[1]), L2 * sin(q[0] + q[1]), q[1];
+    *p[2] = LINK2 * cos(q[0] + q[1]), LINK2 * sin(q[0] + q[1]), q[1];
     *p[2] = *p[1] + *p[2];
 
     //p3: pose of the toolend (end of link 3)
-    *p[3] = L3 * cos(q[0] + q[1] + q[2]), L3 * sin(q[0] + q[1] + q[2]), q[2];
+    *p[3] = LINK3 * cos(q[0] + q[1] + q[2]), LINK3 * sin(q[0] + q[1] + q[2]), q[2];
     *p[3] = *p[2] + *p[3];
 }
 
