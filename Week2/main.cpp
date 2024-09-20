@@ -17,6 +17,7 @@ using Vec3D = vector<double>;
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
+#define MAXTRIES 100
 
 //function to determine dot product
 double dotProduct(vector<double> V1, vector<double> V2){
@@ -132,15 +133,46 @@ int main(){
     //variables to calculate the angles on
     double theta1 = 0.0, theta2 = 0.0, theta3 = 0.0;
 
-    //joint angle vectors
-    vector <double> q = {theta1, theta2, theta3};
     //pose matrix
     double p[3][4];
+    //quaternions for fk calculations
+    vector <double> q;
     //make it so that the pose matrix can be passed to the fk function
     double (*ptr)[4];
     ptr = p;
-    //do the ik calculations
-    fk(q, ptr);
+
+    //values to see if the target has been reached
+    bool reached = false;
+    int tries = 0;
+
+    do{
+        ik(theta1, theta2, theta3);
+
+        //display IK results
+        cout << "IK Joint Angles:" << endl;
+        cout << "Theta1: " << theta1 * 180 / M_PI << " degrees" << endl;
+        cout << "Theta2: " << theta2 * 180 / M_PI << " degrees" << endl;
+        cout << "Theta3: " << theta3 * 180 / M_PI << " degrees" << endl;
+
+        //joint angle vectors
+        q = {theta1, theta2, theta3};
+
+        //do fk calculations to verify if the ik calculations put the arm in the right position
+        fk(q, ptr);
+
+        // Display FK results
+        cout << "FK End Effector Position:" << endl;
+        cout << "(" << p[3][0] << ", " << p[3][1] << ")" << endl;
+
+        // Check if FK matches target
+        if (abs(p[3][0] - DESTX) < 1e-6 && abs(p[3][1] - DESTY) < 1e-6) {
+            cout << "IK solution validated!" << endl;
+            reached = true;
+        } else {
+            cout << "IK solution validation failed! \n Trying again!" << endl;
+            tries += 1;
+        }
+    } while(!reached || tries >= MAXTRIES);
 
     return 0;
 }
