@@ -12,6 +12,9 @@ using namespace std;
 
 //constants
 #define DEST {1.0, 2.0, 0}
+#define LINK1  1.0
+#define LINK2 1.0
+#define LINK3 1.0
 
 //function to determine a dot product
 double dotProduct(vector<double> V1, vector<double> V2){
@@ -46,8 +49,8 @@ double calcVectorLen(vector<double> v){
 
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
-   double x = (cos(q[0])) + (cos(q[0] + q[1])) + (cos(q[0] + q[1] + q[2]));
-   double y = (sin(q[0])) + (sin(q[0] + q[1])) + (sin(q[0] + q[1] + q[2])); 
+   double x = (LINK1 * cos(q[0])) + (LINK2 * cos(q[0] + q[1])) + (LINK3 * cos(q[0] + q[1] + q[2]));
+   double y = (LINK1 * sin(q[0])) + (LINK2 * sin(q[0] + q[1])) + (LINK3 * sin(q[0] + q[1] + q[2])); 
 }
 
 int main(){
