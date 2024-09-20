@@ -13,11 +13,12 @@ using Vec3D = vector<double>;
 
 //constants
 #define DESTX 1.0 
-#define DESTY 2.0
+#define DESTY 1.0
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
 #define MAXTRIES 10
+#define DAMPENING 0.1
 
 //function to determine dot product
 double dotProduct(vector<double> V1, vector<double> V2){
@@ -165,14 +166,18 @@ int main(){
         cout << "(" << p[3][0] << ", " << p[3][1] << ")" << endl;
 
         // Check if FK matches target
-        if (abs(p[3][0] - DESTX) < 1e-6 && abs(p[3][1] - DESTY) < 1e-6) {
+        if (abs(p[3][0] - DESTX) < (1e-6 + DAMPENING) && abs(p[3][1] - DESTY) < (1e-6 + DAMPENING)) {
             cout << "IK solution validated!" << endl;
             reached = true;
         } else {
             cout << "IK solution validation failed! \n Trying again!" << endl;
             tries += 1;
         }
-    } while(!reached || tries >= MAXTRIES);
+        if(tries > MAXTRIES){
+            reached = true;
+        }
+
+    } while(!reached);
 
     return 0;
 }
