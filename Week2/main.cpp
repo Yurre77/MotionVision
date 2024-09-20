@@ -12,12 +12,13 @@ using namespace std;
 using Vec3D = vector<double>;
 
 //constants
-#define DEST {1.0, 2.0}
+#define DESTX 1.0 
+#define DESTY 2.0
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
 
-//function to determine a dot product
+//function to determine dot product
 double dotProduct(vector<double> V1, vector<double> V2){
     double result;
 
@@ -50,7 +51,13 @@ double calcVectorLen(vector<double> v){
 
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
+   //calculate whether the robot arm is long enough to reach the destination
+   double d = sqrt(DESTX * DESTX + DESTY * DESTY);
    
+   if(d > LINK1 + LINK2 + LINK3 || d < fabs(LINK1 - LINK2 - LINK3)){
+    cout << "Robot won't be able to reach the target" << endl;
+    return;
+   }
 }
 
 //function to calculate forward Kinematics (FK)
@@ -70,13 +77,13 @@ void fk(const vector<double>& q, double (*p)[4]){
     *p[2] = L2 * cos(q[0] + q[1]), L2 * sin(q[0] + q[1]), q[1];
     *p[2] = *p[1] + *p[2];
 
-    //p3: pose of the tool end (end of link 3)
+    //p3: pose of the toolend (end of link 3)
     *p[3] = L3 * cos(q[0] + q[1] + q[2]), L3 * sin(q[0] + q[1] + q[2]), q[2];
     *p[3] = *p[2] + *p[3];
 }
 
 int main(){
-
+    //variables to calculate the angles on
     double theta1 = 0.0, theta2 = 0.0, theta3 = 0.0;
 
     //joint angle vectors
