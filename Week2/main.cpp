@@ -17,7 +17,7 @@ using Vec3D = vector<double>;
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
-#define MAXTRIES 100
+#define MAXTRIES 10
 
 //function to determine dot product
 double dotProduct(vector<double> V1, vector<double> V2){
@@ -35,7 +35,7 @@ double dotProduct(vector<double> V1, vector<double> V2){
 //function to calculate cross product
 vector<double> crossProduct(vector<double> v1, vector<double> v2){
 
-    vector<double> returnV;
+    vector<double> returnV = {0.0, 0.0, 0.0};
 
     //calculate the return vector
     returnV[0] = v1[1] * v2[2] - v1[2] * v2[1];
