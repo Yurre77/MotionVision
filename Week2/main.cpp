@@ -46,7 +46,8 @@ double calcVectorLen(vector<double> v){
 
 //function for the inwards kinematics
 void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
-    
+   double x = (cos(q[0])) + (cos(q[0] + q[1])) + (cos(q[0] + q[1] + q[2]));
+   double y = (sin(q[0])) + (sin(q[0] + q[1])) + (sin(q[0] + q[1] + q[2])); 
 }
 
 int main(){
