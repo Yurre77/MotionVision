@@ -54,6 +54,7 @@ void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
 
    *p[0] = 0.0, 0.0, 0.0;
    *p[1] = M_PI - acos((((LINK1 * LINK1) + (LINK2 * LINK2) - x - y) / (2*(LINK1 + LINK2)))) || acos((((LINK1 * LINK1) + (LINK2 * LINK2) - x - y) / (2*(LINK1 + LINK2))));
+   *p[0] = atan(y/x) - atan((LINK2 * sin(*p[1])) / (LINK1 + LINK2 * cos(*p[1])));
 }
 
 int main(){
