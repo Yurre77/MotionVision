@@ -66,7 +66,16 @@ void ik(double &theta1, double &theta2, double &theta3){
     vector<double> u1 = {LINK1, 0, 0};
     vector<double> u2 = {virt_target[0] - u1[0], virt_target[1] - u1[1], 0};
 
-    
+    //calculate theta2
+    double cos_theta2 = dotProduct(u1, u2) / calcVectorLen(u1) * calcVectorLen(u2);
+    vector<double> cross = crossProduct(u1, u2);
+    double sin_theta2 = cross[2] / (calcVectorLen(u1) * calcVectorLen(u2));
+
+    theta2 = acos(cos_theta2);
+    if(sin_theta2 < 0){
+        theta2 = -theta2;
+    }
+
 }
 
 //function to calculate forward Kinematics (FK)
