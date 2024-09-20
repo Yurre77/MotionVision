@@ -10,6 +10,9 @@ Date: 11-09-2024
 
 using namespace std;
 
+//constants
+#define DEST {1.0, 2.0, 0}
+
 //function to determine a dot product
 double dotProduct(vector<double> V1, vector<double> V2){
     double result;
@@ -64,25 +67,8 @@ void fk(const vector<double>& q, double (*p)[4]){
 }
 
 //function for the inwards kinematics
-void ik(const vector<double>& q, double (*p)[4]){
-    //Arm Links
-    const double L1=1.0, L2=1.0, L3 = 1.0;
-
-    //position vectors of each joint
-    *p[0] = 0.0, 0.0, 0.0;
-
-    //calculations for inverse kinematics positions
-    //p3: pose of joint #2 (end of link 1)
-    *p[3] = L1 * cos(q[0]), L1 * sin(q[0]), q[0];
-    *p[3] = *p[0] + *p[3];
-
-    //p2: pose of joint #3 (end of link 2)
-    *p[2] = L2 * cos(q[0] + q[1]), L2 * sin(q[0] + q[1]), q[1];
-    *p[2] = *p[3] + *p[2];
-
-    //p1: pose of the tool end (end of link 3)
-    *p[1] = L3 * cos(q[0] + q[1] + q[2]), L3 * sin(q[0] + q[1] + q[2]), q[2];
-    *p[1] = *p[2] + *p[1];
+void ik(const vector<double>& q, double (*p)[4], vector<double> desiredPos){
+    
 }
 
 int main(){
@@ -97,12 +83,7 @@ int main(){
     ptr = p;
 
     //do the ik calculations
-    ik(q, ptr);
-
-    //output the pose matrix
-    for(const auto& pose : p){
-        cout << "IK: \n(" << pose[0] << ", " << pose[1] << ", " << pose[2] << ")" << endl;
-    }
+    ik(q, ptr, DEST);
 
     return 0;
 }
