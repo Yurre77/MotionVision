@@ -76,18 +76,18 @@ void fk(const vector<double>& q, double (*p)[4]){
 }
 
 int main(){
-    //joint angle vectors
-    vector <double> q = {0.1, 0.4, 0.9};
 
+    double theta1 = 0.0, theta2 = 0.0, theta3 = 0.0;
+
+    //joint angle vectors
+    vector <double> q = {theta1, theta2, theta3};
     //pose matrix
     double p[3][4];
-
-    //make it so that the pose matrix can be passed to the ik function
+    //make it so that the pose matrix can be passed to the fk function
     double (*ptr)[4];
     ptr = p;
-
     //do the ik calculations
-    ik(q, ptr, DEST);
+    fk(q, ptr);
 
     return 0;
 }
