@@ -63,19 +63,37 @@ void ik(double &theta1, double &theta2, double &theta3){
     vector<double> target = {DESTX, DESTY, 0};
     vector<double> virt_target = {DESTX - LINK3 * (DESTX / d), DESTY - LINK3 * (DESTY / d), 0};
 
+    //calculate theta2
     vector<double> u1 = {LINK1, 0, 0};
     vector<double> u2 = {virt_target[0] - u1[0], virt_target[1] - u1[1], 0};
 
-    //calculate theta2
+    //angle calculations for theta2
     double cos_theta2 = dotProduct(u1, u2) / calcVectorLen(u1) * calcVectorLen(u2);
     vector<double> cross = crossProduct(u1, u2);
     double sin_theta2 = cross[2] / (calcVectorLen(u1) * calcVectorLen(u2));
 
+    //determine whether theta2 should be positive or negative
     theta2 = acos(cos_theta2);
     if(sin_theta2 < 0){
         theta2 = -theta2;
     }
 
+    //calculate theta1
+    vector<double> base_target = virt_target;
+    vector<double> base_x = {1.0, 0.0, 0.0};
+
+    //angle calculations for theta1
+    double cos_theta1 = dotProduct(base_x, base_target) / calcVectorLen(base_target);
+    cross = crossProduct(base_x, base_target);
+    double sin_theta1 = cross[2] / calcVectorLen(base_target);
+
+    //determine whether theta1 is positive or negative
+    theta1 = acos(cos_theta1);
+    if(sin_theta1 < 0){
+        theta1 = -theta1;
+    }
+
+    
 }
 
 //function to calculate forward Kinematics (FK)
