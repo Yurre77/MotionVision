@@ -9,7 +9,6 @@ Date: 11-09-2024
 #include <vector>
 
 using namespace std;
-using Vec3D = vector<double>;
 
 //constants
 #define DESTX 1.0 
@@ -18,7 +17,7 @@ using Vec3D = vector<double>;
 #define LINK2 1.0
 #define LINK3 1.0
 #define MAXTRIES 10
-#define DAMPENING 0.1
+#define DAMPENING 1
 
 //function to determine dot product
 double dotProduct(vector<double> V1, vector<double> V2){
@@ -173,9 +172,11 @@ int main(){
             cout << "IK solution validation failed! \n Trying again!" << endl;
             tries += 1;
         }
+        
         if(tries > MAXTRIES){
             reached = true;
         }
+        
 
     } while(!reached);
 
