@@ -174,7 +174,7 @@ int main(){
         }
         
         if(tries > MAXTRIES){
-            reached = true;
+            break;
         }
         
 
