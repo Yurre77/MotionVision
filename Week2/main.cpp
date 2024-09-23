@@ -1,7 +1,7 @@
 /*
 Student: Yurre Schram
 Assignment: 2: Inverse kinematics
-Date: 11-09-2024
+Date: 18-09-2024
 */
 
 #include <iostream>
