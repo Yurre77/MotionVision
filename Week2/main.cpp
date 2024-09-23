@@ -165,7 +165,7 @@ int main(){
         cout << "(" << p[3][0] << ", " << p[3][1] << ")" << endl;
 
         // Check if FK matches target
-        if (abs(p[3][0] - DESTX) < (1e-6 + DAMPENING) && abs(p[3][1] - DESTY) < (1e-6 + DAMPENING)) {
+        if (abs(p[3][0] - DESTX) < 1e-6 && abs(p[3][1] - DESTY) < 1e-6) {
             cout << "IK solution validated!" << endl;
             reached = true;
         } else {
