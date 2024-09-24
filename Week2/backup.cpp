@@ -9,4 +9,12 @@ class robotArm{
         double L1;
         double L2;
         double L3;
+
+    double fk(){
+
+        double x;
+        double y;
+
+        return (x, y);
+    }
 };
