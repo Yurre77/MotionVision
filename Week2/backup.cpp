@@ -20,4 +20,8 @@ class robotArm{
 
         return (x, y);
     }
+
+    void ik(){
+        
+    }
 };
