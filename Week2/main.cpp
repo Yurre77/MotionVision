@@ -56,7 +56,7 @@ void ik(double &theta1, double &theta2, double &theta3){
     double d = sqrt(DESTX * DESTX + DESTY * DESTY);
 
     if(d > LINK1 + LINK2 + LINK3 || d < fabs(LINK1 - LINK2 - LINK3)){
-        cout << "Robot won't be able to reach the target" << endl;
+        std::cout << "Robot won't be able to reach the target" << endl;
         return;
     }
 
@@ -151,10 +151,10 @@ int main(){
         ik(theta1, theta2, theta3);
 
         //display IK results
-        cout << "IK Joint Angles:" << endl;
-        cout << "Theta1: " << theta1 * 180 / M_PI << " degrees" << endl;
-        cout << "Theta2: " << theta2 * 180 / M_PI << " degrees" << endl;
-        cout << "Theta3: " << theta3 * 180 / M_PI << " degrees" << endl;
+        std::cout << "IK Joint Angles:" << endl;
+        std::cout << "Theta1: " << theta1 * 180 / M_PI << " degrees" << endl;
+        std::cout << "Theta2: " << theta2 * 180 / M_PI << " degrees" << endl;
+        std::cout << "Theta3: " << theta3 * 180 / M_PI << " degrees" << endl;
 
         //joint angle vectors
         q = {theta1, theta2, theta3};
@@ -163,15 +163,15 @@ int main(){
         fk(q, ptr);
 
         // Display FK results
-        cout << "FK End Effector Position:" << endl;
-        cout << "(" << p[3][0] << ", " << p[3][1] << ")" << endl;
+        std::cout << "FK End Effector Position:" << endl;
+        std::cout << "(" << p[3][0] << ", " << p[3][1] << ")" << endl;
 
         // Check if FK matches target
         if (abs(p[3][0] - DESTX) < 1e-6 && abs(p[3][1] - DESTY) < 1e-6) {
-            cout << "IK solution validated!" << endl;
+            std::cout << "IK solution validated!" << endl;
             reached = true;
         } else {
-            cout << "IK solution validation failed! \n Trying again!" << endl;
+            std::cout << "IK solution validation failed! \n Trying again!" << endl;
             tries += 1;
         }
         
