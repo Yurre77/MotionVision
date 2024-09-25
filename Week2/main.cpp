@@ -3,8 +3,8 @@
 #include <iostream>
 
 //constants
-#define DESTX 1.0 
-#define DESTY 1.0
+#define XTARGET 1
+#define YTARGET 1
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
@@ -28,12 +28,10 @@ class robotArm{
         return (x, y);
     }
 
-    void ik(double theta1, double theta2){
+    double ik(int x, int y){
+        double theta1, theta2, theta3;
         
-    }
-
-    void ik(double theta1, double theta2, double theta3){
-        
+        return theta1, theta2, theta3;
     }
 };
 
@@ -74,6 +72,14 @@ int main(){
     arm.L1 = LINK1;
     arm.L2 = LINK2;
     arm.L3 = LINK3;
+
+    double theta1, theta2, theta3 = arm.ik(XTARGET, YTARGET);
+
+    //display IK results
+    std::cout << "IK Joint Angles:" << endl;
+    std::cout << "Theta1: " << theta1 * 180 / M_PI << " degrees" << endl;
+    std::cout << "Theta2: " << theta2 * 180 / M_PI << " degrees" << endl;
+    std::cout << "Theta3: " << theta3 * 180 / M_PI << " degrees" << endl;
 
     return 0;
 }
