@@ -28,7 +28,11 @@ class robotArm{
         return (x, y);
     }
 
-    void ik(){
+    void ik(double theta1, double theta2){
+        
+    }
+
+    void ik(double theta1, double theta2, double theta3){
         
     }
 };
