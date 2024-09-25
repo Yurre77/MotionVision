@@ -51,3 +51,13 @@ vector<double> crossProduct(vector<double> v1, vector<double> v2){
 
     return returnV;
 }
+
+int main(){
+    robotArm arm;
+
+    arm.L1;
+    arm.L2;
+    arm.L3;
+
+    return 0;
+}
