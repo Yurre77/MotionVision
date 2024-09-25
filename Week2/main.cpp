@@ -25,11 +25,16 @@ class robotArm{
         x = (L1 * cos(theta1) + L2 * cos(theta1 + theta2) + L3 * cos(theta1 + theta2 + theta3));
         y = (L1 * sin(theta1) + L2 * sin(theta1 + theta2) + L3 * sin(theta1 + theta2 + theta3));
 
-        return (x, y);
+        return x, y;
     }
 
     double ik(int x, int y){
         double theta1, theta2, theta3;
+        double x, y;
+
+        do{
+            x, y = fk(theta1, theta2, theta3);
+        }while(true);
         
         return theta1, theta2, theta3;
     }
