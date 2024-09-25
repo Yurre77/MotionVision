@@ -92,6 +92,11 @@ double calcVectorLen(vector<double> v){
     return (sqrt(((v[0]*v[0])+(v[1]*v[1])+(v[2]*v[2]))));
 }
 
+//function to clip values
+double clip(double n, double lower, double upper){
+    return max(lower, min(n, upper));
+}
+
 int main(){
     robotArm arm;
 
