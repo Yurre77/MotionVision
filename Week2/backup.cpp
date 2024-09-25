@@ -2,6 +2,13 @@
 #include <vector>
 #include <iostream>
 
+//constants
+#define DESTX 1.0 
+#define DESTY 1.0
+#define LINK1 1.0
+#define LINK2 1.0
+#define LINK3 1.0
+
 using namespace std;
 
 class robotArm{
@@ -55,9 +62,9 @@ vector<double> crossProduct(vector<double> v1, vector<double> v2){
 int main(){
     robotArm arm;
 
-    arm.L1;
-    arm.L2;
-    arm.L3;
+    arm.L1 = LINK1;
+    arm.L2 = LINK2;
+    arm.L3 = LINK3;
 
     return 0;
 }
