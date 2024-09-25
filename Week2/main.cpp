@@ -12,6 +12,7 @@
 #define LINK3 1.0
 
 //Calculation
+#define MAXTRIES 10000
 #define TOLERANCE 0.01
 #define DAMPENING 0.05
 #define DELTA 0.1
@@ -40,6 +41,10 @@ class robotArm{
         double x, y;
         double error_x, error_y;
         double x1, x2, x3, y1, y2, y3;
+        double grad1, grad2, grad3;
+        double dot1, dot2, dot3;
+        int loops = 0;
+        bool reached = false;
 
         do{
             x, y = fk(theta1, theta2, theta3);
@@ -48,14 +53,22 @@ class robotArm{
             error_y = y_target - y;
 
             if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
-                return theta1, theta2, theta3;
+                reached = true;
             }
 
             x1, y1 = fk(theta1 + DELTA, theta2, theta3);
             x2, y2 = fk(theta1, theta2 + DELTA, theta3);
             x3, y3 = fk(theta1, theta2, theta3 + DELTA);
 
-        }while(true);
+            grad1 = (x1 - x, y1 - y);
+            grad2 = (x2 - x, y2 - y);
+            grad3 = (x3 - x, y3 - y);
+
+            dot1 = dotProduct(grad1, (error_x, error_y));
+            dot2 = dotProduct(grad2, (error_x, error_y));
+            dot3 = dotProduct(grad3, (error_x, error_y));
+
+        }while(loops < MAXTRIES && !(reached));
         
         return theta1, theta2, theta3;
     }
