@@ -28,7 +28,7 @@ class robotArm{
         return x, y;
     }
 
-    double ik(int x, int y){
+    double ik(double x_target, double y_target){
         double theta1, theta2, theta3;
         double x, y;
 
