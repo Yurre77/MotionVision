@@ -5,10 +5,15 @@
 //constants
 #define XTARGET 1
 #define YTARGET 1
+
+//robot limitations
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
+
+//Calculation
 #define TOLERANCE 0.01
+#define DAMPENING 0.05
 #define DELTA 0.1
 
 using namespace std;
