@@ -10,8 +10,8 @@
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
-#define MINANGLE 1.22
-#define MAXANGLE 4.36
+#define MINANGLE 1.22 //the smallest angle two links of the arm can have, -70 at 1.22
+#define MAXANGLE 4.36 //the biggest angle two links of the arm can have, 250 at 4.36
 
 //Calculation
 #define MAXTRIES 10000
@@ -20,6 +20,37 @@
 #define DELTA 0.1
 
 using namespace std;
+
+//function to determine dot product
+double dotProduct(vector<double> V1, vector<double> V2){
+    double result;
+
+    double Ax = V1[0] * V2[0];
+    double Ay = V1[1] * V2[1];
+    double Az = V1[2] * V2[2];
+
+    result = Ax + Ay + Az;
+
+    return result;
+}
+
+//function to calculate cross product
+vector<double> crossProduct(vector<double> v1, vector<double> v2){
+
+    vector<double> returnV = {0.0, 0.0, 0.0};
+
+    //calculate the return vector
+    returnV[0] = v1[1] * v2[2] - v1[2] * v2[1];
+    returnV[1] = v1[2] * v2[0] - v1[0] * v2[2];
+    returnV[2] = v1[0] * v2[1] - v1[1] * v2[0];
+
+    return returnV;
+}
+
+//function to clip values
+double clip(double n, double lower, double upper){
+    return max(lower, min(n, upper));
+}
 
 class robotArm{
     public:
@@ -82,46 +113,12 @@ class robotArm{
                 reached = true;
             }
         }while(loops < MAXTRIES && !(reached));
+
+        cout << "IK stopped" << endl;
         
         return theta1, theta2, theta3;
     }
 };
-
-//function to determine dot product
-double dotProduct(vector<double> V1, vector<double> V2){
-    double result;
-
-    double Ax = V1[0] * V2[0];
-    double Ay = V1[1] * V2[1];
-    double Az = V1[2] * V2[2];
-
-    result = Ax + Ay + Az;
-
-    return result;
-}
-
-//function to calculate cross product
-vector<double> crossProduct(vector<double> v1, vector<double> v2){
-
-    vector<double> returnV = {0.0, 0.0, 0.0};
-
-    //calculate the return vector
-    returnV[0] = v1[1] * v2[2] - v1[2] * v2[1];
-    returnV[1] = v1[2] * v2[0] - v1[0] * v2[2];
-    returnV[2] = v1[0] * v2[1] - v1[1] * v2[0];
-
-    return returnV;
-}
-
-//function to calculate vector length
-double calcVectorLen(vector<double> v){
-    return (sqrt(((v[0]*v[0])+(v[1]*v[1])+(v[2]*v[2]))));
-}
-
-//function to clip values
-double clip(double n, double lower, double upper){
-    return max(lower, min(n, upper));
-}
 
 int main(){
     robotArm arm;
