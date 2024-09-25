@@ -10,6 +10,8 @@
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
+#define MINANGLE 1.22
+#define MAXANGLE 4.36
 
 //Calculation
 #define MAXTRIES 10000
@@ -52,10 +54,6 @@ class robotArm{
             error_x = x_target - x;
             error_y = y_target - y;
 
-            if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
-                reached = true;
-            }
-
             x1, y1 = fk(theta1 + DELTA, theta2, theta3);
             x2, y2 = fk(theta1, theta2 + DELTA, theta3);
             x3, y3 = fk(theta1, theta2, theta3 + DELTA);
@@ -71,6 +69,18 @@ class robotArm{
             dot2 = dotProduct(grad2, vector<double>(error_x, error_y));
             dot3 = dotProduct(grad3, vector<double>(error_x, error_y));
 
+            theta1 += dot1 * DAMPENING;
+            theta2 += dot2 * DAMPENING;
+            theta3 += dot3 * DAMPENING;
+
+            theta1 = clip(theta1, 0, M_PI);
+
+            theta2 = clip(theta2, MINANGLE, MAXANGLE);
+            theta3 = clip(theta3, MINANGLE, MAXANGLE);
+
+            if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
+                reached = true;
+            }
         }while(loops < MAXTRIES && !(reached));
         
         return theta1, theta2, theta3;
