@@ -70,12 +70,12 @@ class robotArm{
     }
 
     double ik(double x_target, double y_target){
-        double theta1, theta2, theta3;
-        double x, y;
-        double error_x, error_y;
-        double x1, x2, x3, y1, y2, y3;
-        vector<double> grad1, grad2, grad3;
-        double dot1, dot2, dot3;
+        double theta1, theta2, theta3 = 0;
+        double x, y = 0;
+        double error_x, error_y = 0;
+        double x1, x2, x3, y1, y2, y3 = 0;
+        vector<double> grad1, grad2, grad3 = {0, 0};
+        double dot1, dot2, dot3 = 0;
         int loops = 0;
         bool reached = false;
 
@@ -89,12 +89,9 @@ class robotArm{
             x2, y2 = fk(theta1, theta2 + DELTA, theta3);
             x3, y3 = fk(theta1, theta2, theta3 + DELTA);
 
-            grad1[0] = x1 - x;
-            grad1[1] = y1 - y;
-            grad2[0] = x2 - x; 
-            grad2[1] = y2 - y;
-            grad3[0] = x3 - x; 
-            grad3[1] = y3 - y;
+            grad1 = vector<double>(x1 - x, y1 - y);
+            grad2 = vector<double>(x2 - x, y2 - y);
+            grad3 = vector<double>(x3 - x, y3 - y);
 
             dot1 = dotProduct(grad1, vector<double>(error_x, error_y));
             dot2 = dotProduct(grad2, vector<double>(error_x, error_y));
