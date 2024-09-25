@@ -8,6 +8,7 @@
 #define LINK1 1.0
 #define LINK2 1.0
 #define LINK3 1.0
+#define TOLERANCE 0.01
 
 using namespace std;
 
@@ -31,9 +32,19 @@ class robotArm{
     double ik(double x_target, double y_target){
         double theta1, theta2, theta3;
         double x, y;
+        double error_x, error_y;
 
         do{
             x, y = fk(theta1, theta2, theta3);
+
+            error_x = x_target - x;
+            error_y = y_target - y;
+
+            if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
+                return theta1, theta2, theta3;
+            }
+
+            
         }while(true);
         
         return theta1, theta2, theta3;
