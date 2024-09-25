@@ -9,6 +9,7 @@
 #define LINK2 1.0
 #define LINK3 1.0
 #define TOLERANCE 0.01
+#define DELTA 0.1
 
 using namespace std;
 
@@ -33,6 +34,7 @@ class robotArm{
         double theta1, theta2, theta3;
         double x, y;
         double error_x, error_y;
+        double x1, x2, x3, y1, y2, y3;
 
         do{
             x, y = fk(theta1, theta2, theta3);
@@ -44,7 +46,10 @@ class robotArm{
                 return theta1, theta2, theta3;
             }
 
-            
+            x1, y1 = fk(theta1 + DELTA, theta2, theta3);
+            x2, y2 = fk(theta1, theta2 + DELTA, theta3);
+            x3, y3 = fk(theta1, theta2, theta3 + DELTA);
+
         }while(true);
         
         return theta1, theta2, theta3;
