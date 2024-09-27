@@ -3,13 +3,13 @@
 #include <iostream>
 
 //constants
-#define XTARGET 1
-#define YTARGET 1
+#define XTARGET 6
+#define YTARGET 10
 
 //robot limitations
-#define LINK1 1.0
-#define LINK2 1.0
-#define LINK3 1.0
+#define LINK1 5.0
+#define LINK2 5.0
+#define LINK3 5.0
 #define MINANGLE 1.22 //the smallest angle two links of the arm can have, -70 at 1.22
 #define MAXANGLE 4.36 //the biggest angle two links of the arm can have, 250 at 4.36
 
@@ -25,6 +25,7 @@ using namespace std;
 double dotProduct(vector<double> v1, vector<double> v2){
     double result;
 
+    //convert the vectors to arrays, so that we can use each element seperately
     double V1[v1.size()]; 
     copy(v1.begin(), v1.end(), V1);
     double V2[v2.size()];
@@ -68,6 +69,7 @@ class robotArm{
         double x;
         double y;
 
+        //needed FK calculations
         x = (L1 * cos(theta1) + L2 * cos(theta1 + theta2) + L3 * cos(theta1 + theta2 + theta3));
         y = (L1 * sin(theta1) + L2 * sin(theta1 + theta2) + L3 * sin(theta1 + theta2 + theta3));
 
@@ -75,12 +77,15 @@ class robotArm{
     }
 
     double ik(double x_target, double y_target){
+        //a couple of variables for calculations
         double theta1, theta2, theta3 = 0;
         double x, y = 0;
         double error_x, error_y = 0;
         double x1, x2, x3, y1, y2, y3 = 0;
         vector<double> grad1, grad2, grad3 = {0, 0};
         double dot1, dot2, dot3 = 0;
+
+        //loop variables
         int loops = 0;
         bool reached = false;
 
@@ -94,18 +99,22 @@ class robotArm{
             x2, y2 = fk(theta1, theta2 + DELTA, theta3);
             x3, y3 = fk(theta1, theta2, theta3 + DELTA);
 
+            //calculate vectors of every point in the arm to the desired position
             grad1 = vector<double>(x1 - x, y1 - y);
             grad2 = vector<double>(x2 - x, y2 - y);
             grad3 = vector<double>(x3 - x, y3 - y);
 
+            //calculate dot products
             dot1 = dotProduct(grad1, vector<double>(error_x, error_y));
             dot2 = dotProduct(grad2, vector<double>(error_x, error_y));
             dot3 = dotProduct(grad3, vector<double>(error_x, error_y));
 
+            //dampen the movements so that the arm does not break itself as fast
             theta1 += dot1 * DAMPENING;
             theta2 += dot2 * DAMPENING;
             theta3 += dot3 * DAMPENING;
 
+            //limit the angles of each arm a little
             theta1 = clip(theta1, 0, M_PI);
 
             theta2 = clip(theta2, MINANGLE, MAXANGLE);
