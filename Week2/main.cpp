@@ -95,6 +95,10 @@ class robotArm{
             error_x = x_target - x;
             error_y = y_target - y;
 
+            if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
+                reached = true;
+            }
+
             x1, y1 = fk(theta1 + DELTA, theta2, theta3);
             x2, y2 = fk(theta1, theta2 + DELTA, theta3);
             x3, y3 = fk(theta1, theta2, theta3 + DELTA);
@@ -120,9 +124,6 @@ class robotArm{
             theta2 = clip(theta2, MINANGLE, MAXANGLE);
             theta3 = clip(theta3, MINANGLE, MAXANGLE);
 
-            if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
-                reached = true;
-            }
             loops += 1;
         }while(loops < MAXTRIES && !(reached));
 
