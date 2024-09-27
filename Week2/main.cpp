@@ -22,8 +22,13 @@
 using namespace std;
 
 //function to determine dot product
-double dotProduct(vector<double> V1, vector<double> V2){
+double dotProduct(vector<double> v1, vector<double> v2){
     double result;
+
+    double V1[v1.size()]; 
+    copy(v1.begin(), v1.end(), V1);
+    double V2[v2.size()];
+    copy(v2.begin(), v2.end(), V2);
 
     double Ax = V1[0] * V2[0];
     double Ay = V1[1] * V2[1];
@@ -109,9 +114,11 @@ class robotArm{
             if(sqrt((error_x * error_x) + (error_y * error_y)) < TOLERANCE){
                 reached = true;
             }
+            loops += 1;
         }while(loops < MAXTRIES && !(reached));
 
         cout << "IK stopped" << endl;
+        cout << "loop count: " + loops << endl;
         
         return theta1, theta2, theta3;
     }
