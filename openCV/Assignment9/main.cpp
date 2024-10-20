@@ -1,7 +1,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include "opencv2/imgproc/imgproc.hpp"
+#include <opencv2/imgproc/imgproc.hpp>
 #include <iostream>
 #include <string>
 
@@ -9,37 +9,48 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv){
-    Mat image, greyimage;  // images are stored in datatype Mat (matrix)
-    // Read the image
+    Mat image, greyimage;
+
+    // Load the image of the dice
     image = imread("c:\\dice6.jpg", IMREAD_COLOR);
     if (!image.data){
-        cout << "Could not open or find " << endl;
+        cout << "Could not open or find the image." << endl;
         return -1;
     }
-    // Convert the image from color to gray values: 
+
+    // Convert the image to grayscale
     cvtColor(image, greyimage, COLOR_BGR2GRAY);
-    // Reduce noise:
+
+    // Reduce noise in the image
     GaussianBlur(greyimage, greyimage, Size(9, 9), 2, 2);
-    // each element of the vector (array) circles is a vector of three float 
-       // numbers: x-coordinate of the midpoint, y-coordinate of the midpoint, 
-       // radius
+
+    // Vector to store the detected circles
     vector<Vec3f> circles;
-    // Detect the circles with the Hough-algorithm:
-    HoughCircles(greyimage, circles, HOUGH_GRADIENT, 2, 5, 100, 100, 0, 80);
-    // Print (cout) the number of circles in the image 
-    if (circles.size() >= 1) {
-        cout << circles.size() << " circles detected!" << endl;
-    } else {
-        cout << "No circled detected." << endl;
+
+    // Apply the Hough Circle Transform to detect circles
+    HoughCircles(greyimage, circles, HOUGH_GRADIENT, 1, greyimage.rows/8, 100, 30, 10, 40);
+
+    // Output the number of circles detected (number of eyes on the dice)
+    cout << "Number of eyes detected: " << circles.size() << endl;
+
+    // Loop over the detected circles and draw them on the image
+    for (size_t i = 0; i < circles.size(); i++) {
+        Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+        int radius = cvRound(circles[i][2]);
+
+        // Draw the circle's center
+        circle(image, center, 3, Scalar(0, 255, 0), -1, 8, 0);
+
+        // Draw the circle outline
+        circle(image, center, radius, Scalar(0, 0, 255), 3, 8, 0);
     }
-    // Print for each circle the coordinates of the centre and the radius 
-    // example: circle[0][2]is the radius of circle number 0  
-    int k;
-    for (k = 0; k < circles.size(); k++) {
-        cout << circles[k][0] << "    " << circles[k][1] << "   " << circles[k][2] << endl;
-    }
-    namedWindow("Dice", WINDOW_AUTOSIZE);
-    imshow("Dice", image); 
+
+    // Display the original image with detected circles highlighted
+    namedWindow("Detected Dice Eyes", WINDOW_AUTOSIZE);
+    imshow("Detected Dice Eyes", image);
+
+    // Wait indefinitely until a key is pressed
     waitKey(0);
+
     return 0;
 }
