@@ -1,5 +1,5 @@
 /*
-Student: Yurre Schram
+Student: Yurre
 Assignment: 1: Forward kinematics
 Date: 06-09-2024
 */
