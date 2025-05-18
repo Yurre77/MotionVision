@@ -1,5 +1,5 @@
 /*
-Student: Yurre Schram
+Student: Yurre
 Assignment: 2: Inverse kinematics
 Date: 18-09-2024
 */
